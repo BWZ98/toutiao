@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view />
-    <h2>头条项目</h2>
   </div>
 </template>
 <script>
@@ -9,4 +8,8 @@ export default {
   name: 'App'
 }
 </script>
-<style lang="less"></style>
+<style lang="less">
+.try {
+  font-size: 75px;
+}
+</style>
