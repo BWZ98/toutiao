@@ -6,7 +6,7 @@ export const setToken = (token) => {
 }
 // 取
 export const getToken = () => {
-  localStorage.getItem(key)
+  return localStorage.getItem(key)
 }
 // 删除
 export const removeToken = () => {

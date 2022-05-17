@@ -72,6 +72,11 @@ export default {
         const res = await userLoginAPI(user)
         Notify({ type: 'success', message: '登录成功' })
         setToken(res.data.data.token)
+        // 跳转一定要放在最后
+        // push压栈,可以回退;replace可以回退
+        this.$router.push({
+          path: '/'
+        })
       } catch (error) {
         Notify({ type: 'danger', message: '账号或密码错误' })
       }
