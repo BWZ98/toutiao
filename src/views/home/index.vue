@@ -7,7 +7,12 @@
           <span class="text">头条资讯</span>
         </template>
         <template #right>
-          <van-icon class="i-search" name="search" color="#fff" />
+          <van-icon
+            class="i-search"
+            name="search"
+            color="#fff"
+            @click="searchFn"
+          />
         </template>
       </van-nav-bar>
     </div>
@@ -125,6 +130,10 @@ export default {
     // 切换频道
     changeChannelFn (obj) {
       this.channelID = obj.id
+    },
+    // 跳转搜索页面路由
+    searchFn () {
+      this.$router.push('/search')
     }
   }
 }

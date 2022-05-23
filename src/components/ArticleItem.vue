@@ -33,25 +33,36 @@
             <span>{{ art.pubdate }}</span>
           </div>
           <!-- 反馈按钮 -->
-          <van-icon name="cross" @click="show = true" />
+          <van-icon name="cross" @click.stop="MaskFn" v-show="isShow" />
         </div>
       </template>
     </van-cell>
     <!-- 反馈面板 -->
-    <van-action-sheet
-      v-model="show"
-      :actions="actions"
-      :cancel-text="bottomText"
-      @close="closeFn"
-      @cancel="onCancel"
-      @select="onSelect"
-    />
+    <!-- 存在穿透问题 -->
+    <!-- 解决办法：添加父盒子并阻止冒泡 -->
+    <div @click.stop>
+      <van-action-sheet
+        v-model="show"
+        :actions="actions"
+        :cancel-text="bottomText"
+        @close="closeFn"
+        @cancel="onCancel"
+        @select="onSelect"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { firstActions, secondActions } from '@/api/report.js'
 export default {
+  props: {
+    art: Object,
+    isShow: {
+      type: Boolean,
+      default: true
+    }
+  },
   data () {
     return {
       show: false,
@@ -60,6 +71,10 @@ export default {
     }
   },
   methods: {
+    // 显示蒙版
+    MaskFn () {
+      this.show = true
+    },
     // 点击取消时触发
     onCancel () {
       if (this.bottomText === '返回') {
@@ -88,9 +103,6 @@ export default {
       this.actions = firstActions
       this.bottomText = '取消'
     }
-  },
-  props: {
-    art: Object
   },
   filters: {
     change (val) {

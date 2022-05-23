@@ -16,6 +16,7 @@
           :art="obj"
           @dislikeFn="dislikeFunc"
           @reportFn="reportFunc"
+          @click.native="itemClickFn(obj.art_id)"
         ></ArticleItem>
       </van-list>
     </van-pull-refresh>
@@ -28,7 +29,7 @@ import {
   dislikeArticleAPI,
   reportArticleAPI
 } from '@/api/index.js'
-import ArticleItem from './ArticleItem.vue'
+import ArticleItem from '@/components/ArticleItem.vue'
 import { Notify } from 'vant'
 export default {
   data () {
@@ -81,6 +82,12 @@ export default {
     async reportFunc (id, value) {
       await reportArticleAPI(id, value)
       Notify({ type: 'success', message: '举报成功' })
+    },
+    // 跳转路由-文章页面
+    itemClickFn (id) {
+      this.$router.push({
+        path: `/article?art_id=${id}`
+      })
     }
   }
 }
