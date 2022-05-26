@@ -101,6 +101,7 @@
 
 <script>
 import {
+  detailAPI,
   commentListAPI,
   commentDisLikeAPI,
   commentLikeAPI,
@@ -110,9 +111,6 @@ import {
 } from '@/api'
 export default {
   name: 'CommentList',
-  props: {
-    collect: Boolean
-  },
   data () {
     return {
       commentList: [],
@@ -123,13 +121,17 @@ export default {
       finished: false,
       // 分页加载使用
       lastID: null,
-      isCollect: null
+      // 接收是否收藏的变量
+      isCollect: false
     }
   },
   async created () {
     const res = await commentListAPI({
       artID: this.$route.query.art_id
     })
+    // 为了实现收藏功能,多发一次请求
+    const res2 = await detailAPI(this.$route.query.art_id)
+    this.isCollect = res2.data.data.is_collected
     console.log(res)
     this.commentList = res.data.data.results
     this.totalCount = res.data.data.total_count
@@ -224,12 +226,6 @@ export default {
         this.isCollect = false
         await disStoreArtAPI(this.$route.query.art_id)
       }
-    }
-  },
-  // data只会运行1次,因此不能直接把props里的值赋给data,要开启侦听器，父传子时，侦听器检测到值的变化，把它传递给子组件
-  watch: {
-    collect (newV) {
-      this.isCollect = newV
     }
   }
 }

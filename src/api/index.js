@@ -1,4 +1,4 @@
-import { userLogin } from './user.js'
+import { userLogin, userInfo, userPro, updatePhoto, updateProfile, getNewToken } from './user.js'
 
 import { getAllChannels, getUserChannels, getAllArticleList, dislikeArticle, reportArticle, updateChannels, removeChannels } from './home.js'
 
@@ -7,6 +7,11 @@ import { suggestList, searchResult } from './search.js'
 import { detail, disFollow, follow, disLike, like, commentList, commentDisLike, commentLike, sendComment, storeArt, disStoreArt } from './articleDetail.js'
 
 export const userLoginAPI = userLogin
+export const userInfoAPI = userInfo
+export const userProAPI = userPro
+export const updatePhotoAPI = updatePhoto
+export const updateProfileAPI = updateProfile
+export const getNewTokenAPI = getNewToken
 export const getAllChannelsAPI = getAllChannels
 export const getUserChannelsAPI = getUserChannels
 export const getAllArticleListAPI = getAllArticleList

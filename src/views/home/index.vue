@@ -18,7 +18,13 @@
     </div>
     <!-- 二级导航 -->
     <div class="sec-nav">
-      <van-tabs v-model="channelID" sticky offset-top="1.2266667rem">
+      <van-tabs
+        v-model="channelID"
+        sticky
+        offset-top="1.2266667rem"
+        :before-change="beforeChangeFn"
+        @change="changeFn"
+      >
         <van-tab
           :title="obj.name"
           v-for="obj in channelList"
@@ -74,7 +80,9 @@ export default {
       channelList: [],
       // articleList: [],
       allChannelList: [],
-      show: false
+      show: false,
+      // 为了实现切换频道保存滚动条位置,定义一个空对象,其键值对为ID和滚动位置
+      channelScroll: {}
     }
   },
   async created () {
@@ -134,7 +142,36 @@ export default {
     // 跳转搜索页面路由
     searchFn () {
       this.$router.push('/search')
+    },
+    // 切换路由时保存位置的滚动函数
+    scorllFn () {
+      this.$route.meta.scorllT =
+        document.documentElement.scrollTop || document.body.scrollTop
+    },
+    // 切换频道时保存位置
+    beforeChangeFn () {
+      const channelS =
+        document.documentElement.scrollTop || document.body.scrollTop
+      this.channelScroll[this.channelID] = channelS
+      // 保证切换
+      return true
+    },
+    // 切换回来时,赋值
+    changeFn () {
+      this.$nextTick(() => {
+        document.documentElement.scrollTop = this.channelScroll[this.channelID]
+      })
     }
+  },
+  activated () {
+    // 路由激活时监听滚动事件
+    window.addEventListener('scroll', this.scorllFn)
+    document.documentElement.scrollTop = this.$route.meta.scorllT
+  },
+  // 想要实现切换路由仍然保存滚动条位置的功能
+  // 思路,由于使用了组件缓存,当路由切换时在路由中保存滚动条位置
+  deactivated () {
+    window.removeEventListener('scroll', this.scorllFn)
   }
 }
 </script>

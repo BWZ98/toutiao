@@ -10,8 +10,8 @@
           <img
             v-if="art.cover.type === 1"
             class="thumb"
-            :src="art.cover.images[0]"
             alt=""
+            v-lazy="art.cover.images[0]"
           />
         </div>
         <div class="thumb-box" v-if="art.cover.type > 1">
@@ -19,7 +19,7 @@
             class="thumb"
             v-for="(item, index) in art.cover.images"
             :key="index"
-            :src="item"
+            v-lazy="item"
             alt=""
           />
         </div>

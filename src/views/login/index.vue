@@ -72,10 +72,13 @@ export default {
         const res = await userLoginAPI(user)
         Notify({ type: 'success', message: '登录成功' })
         setToken(res.data.data.token)
+        // 保存刷新token
+        localStorage.setItem('refresh_token', res.data.data.refresh_token)
         // 跳转一定要放在最后
-        // push压栈,可以回退;replace可以回退
+        // push压栈,可以回退;replace不可以回退
         this.$router.push({
-          path: '/'
+          // 配合router.js中实现登录后回到原界面功能
+          path: this.$route.query.path || '/'
         })
       } catch (error) {
         Notify({ type: 'danger', message: '账号或密码错误' })

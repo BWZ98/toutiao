@@ -2,76 +2,80 @@
   <div>
     <!-- Header 区域 -->
     <NavBar navTitle="文章详情"></NavBar>
+    <van-loading color="#007bff" v-if="!Object.keys(artObj).length"
+      >文章加载中...</van-loading
+    >
+    <div v-else>
+      <!-- 文章信息区域 -->
+      <div class="article-container">
+        <!-- 文章标题 -->
+        <h1 class="art-title">{{ artObj.title }}</h1>
 
-    <!-- 文章信息区域 -->
-    <div class="article-container">
-      <!-- 文章标题 -->
-      <h1 class="art-title">{{ artObj.title }}</h1>
-
-      <!-- 用户信息 -->
-      <van-cell
-        center
-        :title="changeName(artObj.aut_name, artObj.aut_id)"
-        :label="artObj.pubdate"
-      >
-        <template #icon>
-          <img :src="artObj.aut_photo" alt="" class="avatar" />
-        </template>
-        <template #default>
-          <div>
-            <van-button
-              type="info"
-              size="mini"
-              v-if="artObj.is_followed"
-              @click="followFn(true)"
-              >已关注</van-button
-            >
-            <van-button
-              icon="plus"
-              type="info"
-              size="mini"
-              plain
-              v-else
-              @click="followFn(false)"
-              >关注</van-button
-            >
-          </div>
-        </template>
-      </van-cell>
-
-      <!-- 分割线 -->
-      <van-divider></van-divider>
-
-      <!-- 文章内容 -->
-      <div class="art-content" v-html="artObj.content"></div>
-
-      <!-- 分割线 -->
-      <van-divider>End</van-divider>
-
-      <!-- 点赞 -->
-      <div class="like-box">
-        <van-button
-          icon="good-job"
-          type="danger"
-          size="small"
-          v-if="artObj.like_count === 1"
-          @click="likeFn(true)"
-          >已点赞</van-button
+        <!-- 用户信息 -->
+        <van-cell
+          center
+          :title="changeName(artObj.aut_name, artObj.aut_id)"
+          :label="artObj.pubdate"
         >
-        <van-button
-          icon="good-job-o"
-          type="danger"
-          plain
-          size="small"
-          v-else
-          @click="likeFn(false)"
-          >点赞</van-button
-        >
+          <template #icon>
+            <img :src="artObj.aut_photo" alt="" class="avatar" />
+          </template>
+          <template #default>
+            <div>
+              <van-button
+                type="info"
+                size="mini"
+                v-if="artObj.is_followed"
+                @click="followFn(true)"
+                >已关注</van-button
+              >
+              <van-button
+                icon="plus"
+                type="info"
+                size="mini"
+                plain
+                v-else
+                @click="followFn(false)"
+                >关注</van-button
+              >
+            </div>
+          </template>
+        </van-cell>
+
+        <!-- 分割线 -->
+        <van-divider></van-divider>
+
+        <!-- 文章内容 -->
+        <div class="art-content" v-html="artObj.content"></div>
+
+        <!-- 分割线 -->
+        <van-divider>End</van-divider>
+
+        <!-- 点赞 -->
+        <div class="like-box">
+          <van-button
+            icon="good-job"
+            type="danger"
+            size="small"
+            v-if="artObj.like_count === 1"
+            @click="likeFn(true)"
+            >已点赞</van-button
+          >
+          <van-button
+            icon="good-job-o"
+            type="danger"
+            plain
+            size="small"
+            v-else
+            @click="likeFn(false)"
+            >点赞</van-button
+          >
+        </div>
       </div>
-    </div>
-    <!-- 评论区域 -->
-    <div class="comment-container">
-      <CommentList :collect="artObj.is_collected"></CommentList>
+      <!-- 评论区域 -->
+      <div class="comment-container">
+        <CommentList></CommentList>
+      </div>
     </div>
   </div>
 </template>
@@ -288,5 +292,9 @@ export default {
     height: 100%;
     border: none;
   }
+}
+.van-loading {
+  text-align: center;
+  padding-top: 120px;
 }
 </style>

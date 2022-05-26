@@ -11,8 +11,8 @@
         offset="50"
       >
         <ArticleItem
-          v-for="obj in articleList"
-          :key="obj.art_id"
+          v-for="(obj, index) in articleList"
+          :key="index"
           :art="obj"
           @dislikeFn="dislikeFunc"
           @reportFn="reportFunc"

@@ -1,7 +1,11 @@
 <template>
   <div class="layout-container">
     <!-- 路由挂载点 -->
-    <router-view></router-view>
+    <!-- 直接使用路由缓存会导致一个大问题 -->
+    <!-- created不会再执行,导致一开始就请求数据的页面不会改变 -->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <!-- 导航 -->
     <div class="layout-tabbar">
       <van-tabbar v-model="active">
