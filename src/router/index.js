@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login'),
+    component: () => import(/* webpackChunkName:"login" */'@/views/login'),
     // 独享守卫
     beforeEnter (to, from, next) {
       // 如果登录了,并且要去登录页面,阻止路由跳转
@@ -26,23 +26,23 @@ const routes = [
   },
   {
     path: '/search',
-    component: () => import('@/views/search')
+    component: () => import(/* webpackChunkName:"search" */'@/views/search')
   },
   {
     path: '/search/:keywords',
-    component: () => import('@/views/search/SearchResult.vue')
+    component: () => import(/* webpackChunkName:"SearchResult" */'@/views/search/SearchResult.vue')
   },
   {
     path: '/article',
-    component: () => import('@/views/ArticleDetail')
+    component: () => import(/* webpackChunkName:"ArticleDetail" */'@/views/ArticleDetail')
   },
   {
     path: '/layout',
-    component: () => import('@/views/layout'),
+    component: () => import(/* webpackChunkName:"layout" */'@/views/layout'),
     children: [
       {
         path: 'home',
-        component: () => import('@/views/home'),
+        component: () => import(/* webpackChunkName:"home" */'@/views/home'),
         // 实现切换路由后能保存滚动条位置
         meta: {
           scrollT: 0
@@ -50,17 +50,17 @@ const routes = [
       },
       {
         path: 'user',
-        component: () => import('@/views/user')
+        component: () => import(/* webpackChunkName:"user" */'@/views/user')
       }
     ]
   },
   {
     path: '/user_editor',
-    component: () => import('@/views/user/UserEdit.vue')
+    component: () => import(/* webpackChunkName:"UserEdit" */'@/views/user/UserEdit.vue')
   },
   {
     path: '/chat',
-    component: () => import('@/views/Chat')
+    component: () => import(/* webpackChunkName:"Chat" */'@/views/Chat')
   }
 ]
 
