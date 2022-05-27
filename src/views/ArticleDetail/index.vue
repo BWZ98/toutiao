@@ -104,7 +104,7 @@ export default {
   },
   async created () {
     const res = await detailAPI(this.$route.query.art_id)
-    console.log(res)
+    // console.log(res);
     this.artObj = res.data.data
   },
   methods: {

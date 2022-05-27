@@ -55,7 +55,6 @@ export default {
   },
   async created () {
     const res = await userInfoAPI()
-    console.log(res)
     this.user = res.data.data
     // 给vuex传值
     this.$store.commit('SET_USERPHOTO', this.user.photo)
@@ -110,7 +109,7 @@ export default {
     justify-content: space-evenly;
     align-items: center;
     font-size: 28px;
-    padding: 60px 0;
+    padding: 70px 0;
     .user-data-item {
       display: flex;
       flex-direction: column;

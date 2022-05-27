@@ -7,6 +7,7 @@
       <router-view></router-view>
     </keep-alive>
     <!-- 导航 -->
+    <!-- 用to进行跳转在用户强制刷新时会有一些问题,遗留bug -->
     <div class="layout-tabbar">
       <van-tabbar v-model="active">
         <van-tabbar-item to="/">

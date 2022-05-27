@@ -129,10 +129,10 @@ export default {
     const res = await commentListAPI({
       artID: this.$route.query.art_id
     })
+    // console.log(res);
     // 为了实现收藏功能,多发一次请求
     const res2 = await detailAPI(this.$route.query.art_id)
     this.isCollect = res2.data.data.is_collected
-    console.log(res)
     this.commentList = res.data.data.results
     this.totalCount = res.data.data.total_count
     this.lastID = res.data.data.last_id

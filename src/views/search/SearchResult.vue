@@ -63,6 +63,21 @@ export default {
       })
     }
   },
+  // 对搜索结果页面缓存的优化,如果是从搜索页面跳转过来的,则重新发请求,如果是从文章页面跳转过来的,则直接跳转
+  // next的执行在mounted之后
+  beforeRouteEnter (to, from, next) {
+    if (from.path === '/search') {
+      next(async (vm) => {
+        const res = await searchResultAPI({
+          page: vm.page,
+          q: vm.$route.params.keywords
+        })
+        vm.articleList = res.data.data.results
+      })
+    } else {
+      next()
+    }
+  },
   async created () {
     const res = await searchResultAPI({
       page: this.page,
