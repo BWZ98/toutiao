@@ -22,3 +22,6 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### pages
+![pages](https://github.com/BWZ98/toutiao/blob/main/pages.jpg)
